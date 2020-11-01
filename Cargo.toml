@@ -1,0 +1,27 @@
+[package]
+name = "stm32"
+version = "0.1.0"
+authors = ["Adam Greig <adam@adamgreig.com>"]
+edition = "2018"
+
+[dependencies]
+cortex-m = "0.6.4"
+cortex-m-rt = "0.6.13"
+panic-halt = "0.2.0"
+panic-semihosting = "0.5.4"
+
+[dependencies.stm32ral]
+version = "0.4.1"
+features = ["stm32h743", "rt"]
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+debug = true
+lto = true
+codegen-units = 1
+incremental = false
+
+[package.metadata]
+chip = "STM32H743ZITx"
