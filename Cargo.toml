@@ -18,7 +18,7 @@ features = ["stm32h743", "rt"]
 opt-level = 1
 
 [profile.release]
-debug = true
+opt-level = 'z'
 lto = true
 codegen-units = 1
 incremental = false
