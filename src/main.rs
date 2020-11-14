@@ -1,8 +1,7 @@
 #![no_std]
 #![no_main]
 
-extern crate panic_semihosting;
-
+use panic_semihosting as _;
 use cortex_m::asm::delay;
 use cortex_m_rt::entry;
 use stm32ral::{gpio, modify_reg, rcc, read_reg};
@@ -25,14 +24,11 @@ fn main() -> ! {
         MODER7: Output,
         MODER14: Output
     );
-    let mut val = gpio::ODR::ODR14::RW::Low;
+
     loop {
-        modify_reg!(gpio, gpiob, ODR, ODR0: val, ODR7: val, ODR14: val);
-        delay(100_000_000);
-        if val == gpio::ODR::ODR14::RW::Low {
-            val = gpio::ODR::ODR14::RW::High;
-        } else {
-            val = gpio::ODR::ODR14::RW::Low;
-        }
+        modify_reg!(gpio, gpiob, ODR, ODR0: Low, ODR7: High, ODR14: Low);
+        delay(10_000_000);
+        modify_reg!(gpio, gpiob, ODR, ODR0: High, ODR7: Low, ODR14: High);
+        delay(10_000_000);
     }
 }
