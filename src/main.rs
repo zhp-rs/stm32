@@ -16,14 +16,7 @@ fn main() -> ! {
     modify_reg!(rcc, rcc1, AHB4ENR, GPIOBEN: Enabled);
     let gpiob = gpio::GPIOB::take().unwrap();
 
-    modify_reg!(
-        gpio,
-        gpiob,
-        MODER,
-        MODER0: Output,
-        MODER7: Output,
-        MODER14: Output
-    );
+    modify_reg!(gpio, gpiob, MODER, MODER0: Output, MODER7: Output, MODER14: Output);
 
     loop {
         modify_reg!(gpio, gpiob, ODR, ODR0: Low, ODR7: High, ODR14: Low);
